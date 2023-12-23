@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Roller</title>
+  <style>
+    .dice-container {
+      display: flex;
+    }
+
+.dice {
+    
+    margin: 10px; 
+  }
+
+    table {
+      border-collapse: collapse;
+      width: 20%;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: darkblue;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const diceImages = [
+    'die1.png',
+    'die2.png',
+    'die3.png',
+    'die4.png',
+    'die5.png',
+    'die6.png'
+  ];
+</script>
+
+  <div class="dice-group">
+    <img class="dice" id="dice1" src="die1.png" alt="Dice 1">
+    <img class="dice" id="dice2" src="die1.png" alt="Dice 2">
+    <img class="dice" id="dice3" src="die1.png" alt="Dice 3">
+    <img class="dice" id="dice4" src="die1.png" alt="Dice 4">
+    <img class="dice" id="dice5" src="die1.png" alt="Dice 5">
+    <img class="dice" id="dice6" src="die1.png" alt="Dice 6"><br>
+    <img class="dice" id="dice7" src="die1.png" alt="Dice 7">
+    <img class="dice" id="dice8" src="die1.png" alt="Dice 8">
+    <img class="dice" id="dice9" src="die1.png" alt="Dice 9">
+    <img class="dice" id="dice10" src="die1.png" alt="Dice 10">
+    <img class="dice" id="dice11" src="die1.png" alt="Dice 11">
+    <img class="dice" id="dice12" src="die1.png" alt="Dice 12">
+  </div>
+</div>
+
+<button onclick="rollDice()">Roll Dice</button>
+
+<div id="result">
+</div>
+
+<table id="probabilityTable">
+  <thead>
+    <tr>
+      <th>Face</th>
+      <th>Percent</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script>
+  function rollDice() {
+    const faceCounts = [0, 0, 0, 0, 0, 0];
+
+    // Roll 12 dice
+    for (let i = 0; i < 12; i++) {
+      const rollResult = Math.floor(Math.random() * 6) + 1;
+      faceCounts[rollResult - 1]++;
+    }
+
+    const probabilities = faceCounts.map(count => (count / 12 * 100).toFixed(2));
+
+    const resultElement = document.getElementById('result');
+
+    const tableBody = document.getElementById('probabilityTable').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = ''
+    for (let i = 0; i < 6; i++) {
+
+      document.getElementById(`dice${i + 1}`).src = diceImages[i];
+
+      const row = tableBody.insertRow();
+      const cell1 = row.insertCell(0);
+      const cell2 = row.insertCell(1);
+      cell1.innerHTML = `${i + 1}`;
+      cell2.innerHTML = probabilities[i];
+    }
+  }
+</script>
+
+</body>
+</html>
